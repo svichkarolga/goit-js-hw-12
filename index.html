@@ -1,24 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vanilla App Template</title>
-    
-    <script type="module" crossorigin src="/goit-js-hw-12/commonHelpers.js"></script>
-    <link rel="stylesheet" href="/goit-js-hw-12/assets/index-c9db6b34.css">
-  </head>
-  <body>
-   
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>goit-js-hw-11</title>
 
-    <section>
-      <h1>Example page title</h1>
-
-      <img src="./img/javascript.svg" alt="" />
-    </section>
-
-
-
-    
-  </body>
+  
+  
+  <script type="module" crossorigin src="/goit-js-hw-12/commonHelpers.js"></script>
+  <link rel="modulepreload" crossorigin href="/goit-js-hw-12/assets/vendor-38cc1e54.js">
+  <link rel="stylesheet" href="/goit-js-hw-12/assets/index-d2a2b5b5.css">
+</head>
+<body>
+  <section class="gallery-section">
+    <form class="input-form js-search-form">
+      <label>
+        <input class="search-input js-search-input" type="text" name="user_query" placeholder="Search Images"> </input>
+      </label>
+      <button class="search-btn" type="submit">Search</button>
+    </form>
+    <ul class="gallery js-gallery"></ul>
+    <span class="loader is-hidden"></span>
+    <button class="load-more js-load-more is-hidden" type="button">Load more</button>
+  </section>
+  
+</body>
 </html>
