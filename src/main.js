@@ -13,6 +13,9 @@ let currentPage = 1;
 let searchedValue = '';
 let cardHeight = 0;
 
+showLoader();
+setTimeout(hideLoader, 3000);
+
 const light = new SimpleLightbox('.js-gallery a', {
     overlay: true,
     captionsData: 'alt',
@@ -30,6 +33,7 @@ function hideLoader() {
 
 const onSearch = async event => {
     showLoader();
+    setTimeout(hideLoader, 3000);
     try {
         event.preventDefault();
 
@@ -85,6 +89,7 @@ searchForm.addEventListener('submit', onSearch);
 // pagination==========================================================
 const onLoadMoreBtn = async event => {
     showLoader();
+    setTimeout(hideLoader, 3000);
     try {
         currentPage++; 
         const response = await fetchPhotos(searchedValue, currentPage);
@@ -101,7 +106,7 @@ const onLoadMoreBtn = async event => {
         light.refresh();
 
         const totalPages = Math.ceil(response.data.totalHits / 15); // 15 - кількість зображень на сторінку
-        if (currentPage === totalPages) {
+        if (currentPage >= totalPages) {
             btnLoadMore.classList.add('is-hidden');
             iziToast.info({
                 title: 'Info',
