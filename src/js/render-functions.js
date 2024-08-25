@@ -1,4 +1,3 @@
-
 export const createGalleryCardTemplate = (pictureInfo) => {
     return ` <li class="gallery-card">
                 <a class="gallery-link" href="${pictureInfo.largeImageURL}">

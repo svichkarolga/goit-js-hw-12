@@ -57,7 +57,6 @@ const onSearch = async event => {
             searchForm.reset();
             return;
         }
-
         const galleryCardsTemplate = response.data.hits.map(imgDetails => createGalleryCardTemplate(imgDetails)).join('');
         galleryEl.innerHTML = galleryCardsTemplate;
         
@@ -85,9 +84,7 @@ searchForm.addEventListener('submit', onSearch);
 
 // pagination==========================================================
 const onLoadMoreBtn = async event => {
-    
     showLoader();
-    
     try {
         currentPage++; 
         const response = await fetchPhotos(searchedValue, currentPage);
