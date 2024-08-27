@@ -13,9 +13,6 @@ let currentPage = 1;
 let searchedValue = '';
 let cardHeight = 0;
 
-showLoader();
-setTimeout(hideLoader, 3000);
-
 const light = new SimpleLightbox('.js-gallery a', {
     overlay: true,
     captionsData: 'alt',
@@ -32,15 +29,14 @@ function hideLoader() {
 };
 
 const onSearch = async event => {
+    event.preventDefault();
     showLoader();
-    setTimeout(hideLoader, 3000);
-    try {
-        event.preventDefault();
 
-        searchedValue = searchForm.elements.user_query.value;
+    searchedValue = searchForm.elements.user_query.value.trim();
         
-        currentPage = 1; // значення поточної сторінки скидати в 0
+    currentPage = 1; // значення поточної сторінки скидати в 0
 
+    try {
         const response = await fetchPhotos(searchedValue, currentPage);
         
         if (searchedValue === "") {
@@ -72,6 +68,15 @@ const onSearch = async event => {
         btnLoadMore.classList.remove('is-hidden');
         
         light.refresh();
+
+        const totalPages = Math.ceil(response.data.totalHits / 15); // 15 - кількість зображень на сторінку
+        if (currentPage >= totalPages) {
+            btnLoadMore.classList.add('is-hidden');
+            iziToast.info({
+                title: 'Info',
+                message: 'We are sorry,but you have reached the end of search results',
+            });
+        }
     }
     catch (err) {
         iziToast.error({
@@ -85,11 +90,9 @@ const onSearch = async event => {
 };
 searchForm.addEventListener('submit', onSearch); 
 
-
 // pagination==========================================================
 const onLoadMoreBtn = async event => {
     showLoader();
-    setTimeout(hideLoader, 3000);
     try {
         currentPage++; 
         const response = await fetchPhotos(searchedValue, currentPage);
@@ -114,8 +117,13 @@ const onLoadMoreBtn = async event => {
             });
         }
         searchForm.reset();
+
     } catch (err) {
         console.log(err);
+        iziToast.error({
+            message: "Something went wrong. Please try again later.",
+            position: 'topRight'
+        });
     }   finally {
         hideLoader();
     }
